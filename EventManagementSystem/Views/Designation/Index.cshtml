@@ -1,0 +1,106 @@
+﻿@model IEnumerable<EventManagementSystem.Models.Designation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<link href="~/assets/extra-libs/multicheck/multicheck.css" rel="stylesheet" />
+<link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+
+
+@section Scripts {
+    <script src="~/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
+    <script src="~/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
+    <script src="~/assets/extra-libs/DataTables/datatables.min.js"></script>
+    <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $('#zero_config').DataTable();
+    </script>
+}
+
+@*<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title"><a href="@Url.Action("Create", "Designation")" class="btn btn-success">Create New Designation</a></h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Designation</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Designation</h5>
+                    <div class="table-responsive">
+                        <table id="zero_config" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DesignationName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BasicSalary)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DesignationName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BasicSalary)
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Edit", new { id=item.DesignationID}))" class="btn menu-icon " style="padding:2px"> <i class="mdi mdi-account-edit font-20"></i> </a>
+                                            |
+                                            <a href="@Url.Action("Details", new { id=item.DesignationID}))" class="btn menu-icon" style="padding:2px"> <i class="mdi mdi-account-card-details font-18"></i> </a>
+
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Right sidebar -->
+    <!-- ============================================================== -->
+    <!-- .right-sidebar -->
+    <!-- ============================================================== -->
+    <!-- End Right sidebar -->
+    <!-- ============================================================== -->
+</div>

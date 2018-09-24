@@ -1,0 +1,214 @@
+﻿@model IEnumerable<EventManagementSystem.Models.Invoice>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+
+<link href="~/assets/extra-libs/multicheck/multicheck.css" rel="stylesheet" />
+<link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+
+
+@section Scripts {
+    <script src="~/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
+    <script src="~/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
+    <script src="~/assets/extra-libs/DataTables/datatables.min.js"></script>
+    <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $('#zero_config').DataTable();
+
+        $(function () {
+            $.ajaxSetup({ cache: false });
+            $("a[data-modal]").on("click", function (e) {
+                $('#DetailsBody').load(this.href, function () {
+                    $('#DetailsModal').modal({
+                        keyboard: true,
+                        focus:true
+                    }, 'show');
+                });
+                return false;
+            });
+        });
+        $(function () {
+            $.ajaxSetup({ cache: false });
+            $("a[data-modal]").on("click", function (e) {
+                $('#DetailsBody').load(this.href, function () {
+                    $('#EditModal').modal({
+                        keyboard: true,
+                        focus: true
+                    }, 'show');
+                });
+                return false;
+            });
+        });
+        //$(function () {
+        //    $.ajaxSetup({ cache: false });
+        //    $("a[data-modal]").on("click", function (e) {
+        //        $('#DetailsBody').load(this.href, function () {
+        //            $('#CreateModal').modal({
+        //                keyboard: true,
+        //                focus: true
+        //            }, 'show');
+        //        });
+        //        return false;
+        //    });
+        //});
+    </script>
+}
+
+
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">@Html.ActionLink("Create", "Create", "Invoice")</h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">City</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">City List</h5>
+                    <div class="table-responsive">
+                        <table id="zero_config" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ClientOrder.EventName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.InvoiceKey)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.PaymentType)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.PaidAmount)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Notes)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ClientOrder.EventName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.InvoiceKey)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PaymentType)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PaidAmount)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Notes)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", "Invoice", new { id = item.InvoiceID }, new { data_modal = "" })
+                                            |
+                                            @Html.ActionLink("View", "Details", "Invoice", new { id = item.InvoiceID }, new { data_modal = "" })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Right sidebar -->
+    <!-- ============================================================== -->
+    <!-- .right-sidebar -->
+    <!-- ============================================================== -->
+    <!-- End Right sidebar -->
+    <!-- ============================================================== -->
+    <div class="modal" id="DetailsModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Details
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body" id="DetailsBody">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="EditModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header"> Details</div>
+                <div class="modal-body" id="DetailsBody">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="CreateModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header"> Details</div>
+                <div class="modal-body" id="DetailsBody">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

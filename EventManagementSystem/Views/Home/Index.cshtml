@@ -1,0 +1,365 @@
+﻿
+@{
+                /**/
+
+                Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Events Planning  a Wedding Category | Home ::</title>
+    <!-- custom-theme -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Events Planning Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript">
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+               function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- //custom-theme -->
+    <link href="~/Template/css/style.css" rel="stylesheet" type="text/css" media="all" />
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Template/css/flexslider.css" type="text/css" media="screen" property="" />
+
+    <!-- js -->
+    <script type="text/javascript" src="~/Template/js/jquery-2.1.4.min.js"></script>
+    <!-- //js -->
+    <!-- font-awesome-icons -->
+    <link href="~/Template/css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome-icons -->
+    <link href="//fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+
+    <style>
+        .navbar-nav > li > a {
+            padding-top: 19px;
+            padding-bottom: 15px;
+            margin: -9px;
+            font-size: 12px;
+            padding: 17px;
+        }
+    </style>
+</head>
+<body>
+    <!-- banner -->
+    <div class="banner">
+        <div class="container">
+            <!-- header -->
+            <div class="w3_agile_menu">
+                <div class="agileits_w3layouts_nav">
+                    <div id="toggle_m_nav">
+                        <div id="m_nav_menu" class="m_nav">
+                            <div class="m_nav_ham w3_agileits_ham" id="m_ham_1"></div>
+                            <div class="m_nav_ham" id="m_ham_2"></div>
+                            <div class="m_nav_ham" id="m_ham_3"></div>
+                        </div>
+                    </div>
+                    <div id="m_nav_container" class="m_nav wthree_bg">
+                        <nav class="menu menu--sebastian">
+                            <ul id="m_nav_list" class="m_nav menu__list">
+                                <li class="m_nav_item" id="m_nav_item_1"> <a href="@Url.Action("Index", "Home")" class="link link--kumya"><i class="fa fa-home" aria-hidden="true"></i><span data-letters="Home">Home</span></a></li>
+
+
+                                <li class="dropdown m_nav_item" id="moble_nav_item_2">
+                                    <a href="#" class="dropdown-toggle link link--kumya" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i>Service<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="@Url.Action("BirthDay", "Home")">Birtday</a></li>
+                                        <li><a href="@Url.Action("Wedding", "Home")">Wedding</a></li>
+                                        <li><a href="@Url.Action("Corporate", "Home")">Corporate</a></li>
+                                    </ul>
+                                </li>
+                                <li class="m_nav_item" id="moble_nav_item_3"> <a href="@Url.Action("About", "Home")" class="link link--kumya"><i class="fa fa-info-circle" aria-hidden="true"></i><span data-letters="About Us">About Us</span></a></li>
+
+                                <li class="m_nav_item" id="moble_nav_item_5"> <a href="@Url.Action("Contact", "Home")" class="link link--kumya"><i class="fa fa-envelope-o" aria-hidden="true"></i><span data-letters="Contact Us">Contact Us</span></a></li>
+
+                                @if (User.Identity.IsAuthenticated & User.IsInRole("") == false)
+                                {
+                                    <li class="m_nav_item home-event" id="moble_nav_item_5">
+                                        <a href="#" class="dropdown-toggle link link--kumya" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i>Event<span class="caret"></span></a>
+
+                                        <ul class="dropdown-menu event-menu">
+                                            <li><a href="@Url.Action("Create", "EventRequest")">Place   Request</a></li>
+                                            <li><a href="@Url.Action("IndexByID", "ClientOrderVM")">Event History</a></li>
+                                        </ul>
+                                    </li>
+                                }
+
+                                <li class="m_nav_item" id="moble_nav_item_6">
+                                    @Html.Partial("_LoginPartial")
+                                </li>
+                            </ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="header">
+                <div class="agileits_w3layouts_logo">
+                    <h1><a href="index.html">Events Planning</a></h1>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <!-- //header -->
+            <div class="w3ls_banner_info">
+                <section class="slider">
+                    <div class="flexslider">
+                        <ul class="slides">
+                            <li>
+                                <div class="agileits_w3layouts_banner_info">
+                                    <h3>Let professionals run your event!</h3>
+                                    <p>Let us plan your conference, meeting or event from conception to completion including all pre, post and onsite management </p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="agileits_w3layouts_banner_info">
+                                    <h3>Let professionals run your event!</h3>
+                                    <p>Let us plan your conference, meeting or event from conception to completion including all pre, post and onsite management </p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="agileits_w3layouts_banner_info">
+                                    <h3>Let professionals run your event!</h3>
+                                    <p>Let us plan your conference, meeting or event from conception to completion including all pre, post and onsite management </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                <!-- flexSlider -->
+                <script defer src="~/Template/js/jquery.flexslider.js"></script>
+                <script type="text/javascript">
+                    $(window).load(function () {
+                        $('.flexslider').flexslider({
+                            animation: "slide",
+                            start: function (slider) {
+                                $('body').removeClass('loading');
+                            }
+                        });
+                    });
+                </script>
+                <!-- //flexSlider -->
+            </div>
+        </div>
+    </div>
+    <!-- //banner -->
+    <!-- banner-bottom -->
+    <div class="banner-bottom">
+        <div class="container">
+            <h3 class="w3layouts_head">Welcome to our <span>Events</span></h3>
+            <p class="w3_para">
+                Welcome to our system which is a full-scale event planning company specializing in luxury social events. Our team plans and designs events to elevate your celebration to the next level
+            </p>
+            <div class="w3ls_banner_bottom_grids">
+                <div class="col-md-4 agileits_banner_bottom_grid_left">
+                    <a href="@Url.Action("BirthDay","Home")">
+                        <div class="agileinfo_banner_bottom_grid_l_grid">
+                            <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                        </div>
+                    </a>
+                    <h4>Birthdays</h4>
+                    <p>
+                        Birthdays only come around once a year, so choosing to make it a meaningful time for our loved ones is both wise and kind. It’s all too easy to get swept up in the planning and the decor.
+                    </p>
+                </div>
+                <div class="col-md-4 agileits_banner_bottom_grid_left">
+                    <a href="@Url.Action("Wedding","Home")">
+                        <div class="agileinfo_banner_bottom_grid_l_grid">
+                            <i class="fa fa-heart-o" aria-hidden="true"></i>
+                        </div>
+                    </a>
+                    <h4>Wedding</h4>
+                    <p>
+                        Weddings are often referred to as the bride's big day, but there is someone else back there too, hiding behind the flower arrangements and dusting off his Request. He's called 'the groom'.
+
+                    </p>
+                </div>
+                <div class="col-md-4 agileits_banner_bottom_grid_left">
+                    <a href="@Url.Action("Corporate","Home")">
+                        <div class="agileinfo_banner_bottom_grid_l_grid">
+                            <i class="fa fa-snowflake-o" aria-hidden="true"></i>
+                        </div>
+                    </a>
+                    <h4>Corporate</h4>
+                    <p>
+                        To help create your event, we tailor make your own bespoke package. This will include your standard conference needs and it can also be tailored to any specific requirements that you may have.
+                    </p>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+    <!-- //banner-bottom -->
+    <!-- services -->
+    <div class="agile-ser">
+        <div class="container">
+            <h3 class="w3layouts_head">Our <span>Services</span></h3>
+            <p class="w3_para">
+                A directory of complete wedding , birthday  &  event
+                to HELP plan your perfect wedding ,birthday,Catering & Food,Entertainment & Entertainers, Photographers & Videographers, Decor & Decorations & event day.
+            </p>
+            <div class="agile-ser-tp">
+                <div class="col-md-4 w3-lft">
+                    <div class="w3agile_special_deals_grid_left_grid">
+                        <img src="~/Template/images/4.jpg" class="img-responsive" alt="">
+
+                    </div>
+                    <h4>Party Locations</h4>
+                    <p>We cater to unique baby girl first year birthday themes or first year baby boy birthday theme with ..Save a lot on our banquet halls special birthday party package to give you super value for money Chittagong,DHAKA 1000, Bangladesh ..</p>
+                </div>
+                <div class="col-md-4 w3-lft">
+                    <div class="w3agile_special_deals_grid_left_grid">
+                        <img src="~/Template/images/5.jpg" class="img-responsive" alt="">
+                    </div>
+                    <h4>Catering & Food</h4>
+                    <p>Best Food Catering Service Provider. Since 1987 we're providing Food Catering Services in Bangladesh. What We Cook. Indian Food, Chineese Food, Desh.</p>
+                </div>
+                <div class="col-md-4 w3-lft">
+                    <div class="w3agile_special_deals_grid_left_grid">
+                        <img src="~/Template/images/9.jpg" class="img-responsive" alt="">
+                    </div>
+                    <h4>Decor & Decorations</h4>
+                    <p>Decorations, dalas, flowers for your gaye holud or reception | See more ideas about Wedding decor, Wedding decorations and Wedding jewelry.</p>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+    <!-- //services -->
+    <!-- quicklinks -->
+    <div class="quicklinks-agile-info">
+        <div class="container">
+            <h3 class="w3layouts_head">Quick <span>Links</span></h3>
+            <p class="w3_para">For your free time, and they are independent to us the most important is that which is well pleasing in his option of choosing when they are enabled to do nothing to stop it were not so, every pleasure is to be welcomed and every pain avoided.</p>
+            <div class="quicklinks-agile-info-top">
+                <div class="col-md-6 agile-info-top-left">
+                    <div class="w3agile_special_deals_grid_left_grid">
+                        <img src="~/Template/images/photoGraphy.jpg" class="img-responsive" alt="">
+                    </div>
+                </div>
+                <div class="col-md-6 agile-info-top-right">
+                    <h4>Birthdays Specials</h4>
+                    <li><a href="@Url.Action("BirthDay", "Home")"><i class="fa fa-arrow-right" aria-hidden="true"></i>Party Locations</a></li>
+                    <li><a href="@Url.Action("BirthDay", "Home")"><i class="fa fa-arrow-right" aria-hidden="true"></i>Catering & Food</a></li>
+                    <li><a href="@Url.Action("BirthDay", "Home")"><i class="fa fa-arrow-right" aria-hidden="true"></i>Entertainment & Entertainers</a></li>
+                    <li><a href="@Url.Action("BirthDay", "Home")"><i class="fa fa-arrow-right" aria-hidden="true"></i>Photographers & Videographers</a></li>
+                    <li><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i>Balloons & Flowers</a></li>
+                    <li><a href="@Url.Action("BirthDay", "Home")"><i class="fa fa-arrow-right" aria-hidden="true"></i>Decor & Decorations</a></li>
+
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="quicklinks-agile-info-top">
+                <div class="col-md-6 agile-info-top-right ece">
+                    <h4>Wedding Parties</h4>
+                    <li><a href="@Url.Action("Wedding", "Home")"><i class="fa fa-arrow-right" aria-hidden="true"></i>Wedding Cakes</a></li>
+                    <li><a href="@Url.Action("Wedding", "Home")"><i class="fa fa-arrow-right" aria-hidden="true"></i>Photo & Video</a></li>
+                    <li><a href="@Url.Action("Wedding", "Home")"><i class="fa fa-arrow-right" aria-hidden="true"></i>Wedding Officiants</a></li>
+                    <li><a href="@Url.Action("Wedding", "Home")"><i class="fa fa-arrow-right" aria-hidden="true"></i>Ceremony Locations</a></li>
+                    <li><a href="@Url.Action("Wedding", "Home")"><i class="fa fa-arrow-right" aria-hidden="true"></i>Balloons & Flowers</a></li>
+                </div>
+                <div class="col-md-6 agile-info-top-left">
+                    <div class="w3agile_special_deals_grid_left_grid">
+                        <img src="~/Template/images/2.jpg" class="img-responsive" alt="">
+                    </div>
+                </div>
+
+                <div class="clearfix"> </div>
+            </div>
+            <div class="quicklinks-agile-info-top">
+                <div class="col-md-6 agile-info-top-left">
+                    <div class="w3agile_special_deals_grid_left_grid">
+                        <img src="~/Template/images/10.jpg" class="img-responsive" alt="">
+                    </div>
+                </div>
+                <div class="col-md-6 agile-info-top-right">
+                    <h4>Corporate Events</h4>
+                    <li><a href="@Url.Action("Corporate", "Home")"><i class="fa fa-arrow-right" aria-hidden="true"></i>Party Services</a></li>
+                    <li><a href="@Url.Action("Corporate", "Home")"><i class="fa fa-arrow-right" aria-hidden="true"></i>Locations & Venues</a></li>
+                    <li><a href="@Url.Action("Corporate", "Home")"><i class="fa fa-arrow-right" aria-hidden="true"></i>Catering & Food</a></li>
+                    <li><a href="@Url.Action("Corporate", "Home")"><i class="fa fa-arrow-right" aria-hidden="true"></i>Entertainment & Entertainers</a></li>
+                    <li><a href="@Url.Action("Corporate", "Home")"><i class="fa fa-arrow-right" aria-hidden="true"></i>Photographers & Videographers</a></li>
+                    <li><a href="@Url.Action("Corporate", "Home")"><i class="fa fa-arrow-right" aria-hidden="true"></i>Music</a></li>
+                    <li><a href="@Url.Action("Corporate", "Home")"><i class="fa fa-arrow-right" aria-hidden="true"></i>Decorations & Centerpieces</a></li>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+    <div style="padding:20px;">
+        <div style=" padding: 45px;background-color:#cf2d50;text-align: center;">
+            <h1><a href="@Url.Action("Create", "EventRequest")" style="color:white; font-weight:700; letter-spacing:7px;">Place an Request</a></h1>
+        </div>
+    </div>
+    <!-- //quicklinks -->
+    <!-- footer -->
+    <div class="footer">
+        <div class="container">
+            <h2><a href="index.html">Events Planning</a></h2>
+            <h3>(+880) 1823142319</h3>
+            <form action="#" method="post">
+                <input type="email" name="email" placeholder="Your email..." required="">
+                <input type="submit" value=" ">
+            </form>
+            <div class="agileits_w3three_nav">
+                @*<div class="agileits_w3three_nav_left">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="services.html">Services</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="work.html">Our Work</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                        </ul>
+                    </div>*@
+                @*<div class="agileits_w3three_nav_right">
+                        <ul class="agileits_social_list">
+                            <li><a href="#" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#" class="w3_agile_dribble"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+                            <li><a href="#" class="w3_agile_vimeo"><i class="fa fa-vimeo" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>*@
+                <div class="clearfix"> </div>
+            </div>
+            <p>© 2018 Events Planning. All rights reserved ||</p>
+        </div>
+    </div>
+    <!-- //footer -->
+    <!-- start-smoth-scrolling -->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/Template/js/move-top.js"></script>
+    <script type="text/javascript" src="/Template/js/easing.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+            });
+        });
+    </script>
+    <!-- start-smoth-scrolling -->
+    <!-- menu -->
+    <script type="text/javascript" src="/Template/js/main.js"></script>
+    <!-- //menu -->
+    <!-- //for bootstrap working -->
+    <!-- here stars scrolling icon -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*
+                var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+                };
+            */
+
+            $().UItoTop({ easingType: 'easeOutQuart' });
+
+        });
+    </script>
+    <!-- //here ends scrolling icon -->
+</body>
+</html>
+

@@ -1,0 +1,125 @@
+﻿@model EventManagementSystem.Models.RegisterViewModel
+@using EventManagementSystem.Models
+@{
+    Layout = null;
+}
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Client Registration</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Event Register Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+
+    <!-- Meta tag Keywords -->
+    <!-- css files -->
+    <link rel="stylesheet" href="~/RegisterTemplate/css/style.css" type="text/css" media="all" />
+    <!-- Style-CSS -->
+    <link rel="stylesheet" href="~/RegisterTemplate/css/font-awesome.css"> <!-- Font-Awesome-Icons-CSS -->
+    <!-- //css files -->
+    <!-- js -->
+    <!-- //js -->
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <script type="application/x-javascript">
+             addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+            function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <script src="~/Scripts/jquery.vide.min.js"></script>
+
+
+    }
+</head>
+<body>
+
+    <!-- main -->
+    <div data-vide-bg="video/Ipad">
+        <div class="center-container">
+            <div class="w3ls-header">
+                <div class="header-main">
+                    <h1>Registration Form</h1>
+                    <div class="header-bottom">
+                        <div class="header-right w3agile">
+                            <div class="header-left-bottom agileinfo">
+
+                                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="icon1">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Enter Your Name"})
+                                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "error" })
+                                    </div>
+                                    
+                                    <div class="icon1" id="UserNameDiv">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Enter User Name"})
+                                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "error" })
+                                    </div>
+
+                                    <div class="icon1">
+                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Enter Your Email" })
+                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "error" })
+                                    </div>
+                                    <div class="icon1">
+                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                        @Html.TextBoxFor(m => m.Contact, new { @class = "form-control", @placeholder = "Phone number" })
+                                        @Html.ValidationMessageFor(m => m.Contact, "", new { @class = "error" })
+
+                                    </div>
+                                    <div class="icon1">
+                                        <i class="fa fa-lock" aria-hidden="true"></i>
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Create password" })
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error" })
+
+
+                                    </div>
+                                    <div class="icon1">
+                                        <i class="fa fa-lock" aria-hidden="true"></i>
+                                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirm password" })
+                                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "error" })
+
+
+                                    </div>
+
+                                    <div>@Html.ValidationSummary(true, "", new { @class = "text-danger error" })</div>
+                                    
+                                    <div class="bottom">
+                                        <input type="submit" class="btn btn-default submitBtn" value="Register" />
+                                    </div>
+
+                                }
+                                <div class="header-left-top">
+                                    <div class="sign-up"> <h2>or</h2> </div>
+
+                                </div>
+
+                                @*<section id="socialLoginForm">
+                                    @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                                </section>*@
+
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--header end here-->
+            <!-- copyright start here -->
+            <!--copyright end here-->
+        </div>
+    </div>
+</body>
+</html>
+
+

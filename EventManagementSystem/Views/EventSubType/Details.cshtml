@@ -1,0 +1,35 @@
+﻿@model EventManagementSystem.Models.EventSubType
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>EventSubType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EventType.EventTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventType.EventTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventSubTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventSubTypeName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EventSubTypeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("~/bundles/modernizr")
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Events Planning Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript">
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+               function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- //custom-theme -->
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/Template/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- js -->
+    <!-- //js -->
+    <!-- font-awesome-icons -->
+    <link href="~/Template/css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome-icons -->
+    <link href="//fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+
+    <style>
+        .navbar-nav > li > a {
+            padding-top: 19px;
+            padding-bottom: 15px;
+            margin: -9px;
+            font-size: 12px;
+            padding: 17px;
+        }
+    </style>
+</head>
+<body>
+    <!-- banner -->
+    <div class="banner1">
+        <div class="container">
+            <!-- header -->
+            <div class="w3_agile_menu">
+                <div class="agileits_w3layouts_nav">
+                    <div id="toggle_m_nav">
+                        <div id="m_nav_menu" class="m_nav">
+                            <div class="m_nav_ham w3_agileits_ham" id="m_ham_1"></div>
+                            <div class="m_nav_ham" id="m_ham_2"></div>
+                            <div class="m_nav_ham" id="m_ham_3"></div>
+                        </div>
+                    </div>
+                    <div id="m_nav_container" class="m_nav wthree_bg">
+                        <nav class="menu menu--sebastian">
+                            <ul id="m_nav_list" class="m_nav menu__list">
+                                <li class="m_nav_item active" id="m_nav_item_1"> <a href="@Url.Action("Index", "Home")" class="link link--kumya"><i class="fa fa-home" aria-hidden="true"></i><span data-letters="Home">Home</span></a></li>
+
+
+                                <li class="dropdown m_nav_item" id="moble_nav_item_2">
+                                    <a href="#" class="dropdown-toggle link link--kumya" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i>Service<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="@Url.Action("BirthDay", "Home")">Birtday</a></li>
+                                        <li><a href="@Url.Action("Wedding", "Home")">Wedding</a></li>
+                                        <li><a href="@Url.Action("Corporate", "Home")">Corporate</a></li>
+                                    </ul>
+                                </li>
+
+
+                                <li class="m_nav_item " id="moble_nav_item_3"> <a href="@Url.Action("About", "Home")" class="link link--kumya"><i class="fa fa-info-circle" aria-hidden="true"></i><span data-letters="About Us">About Us</span></a></li>
+
+                                <li class="m_nav_item" id="moble_nav_item_5"> <a href="@Url.Action("Contact", "Home")" class="link link--kumya"><i class="fa fa-envelope-o" aria-hidden="true"></i><span data-letters="Contact Us">Contact Us</span></a></li>
+
+                                @if (User.Identity.IsAuthenticated & User.IsInRole("") == false)
+                                {
+                                    <li class="m_nav_item home-event" id="moble_nav_item_5">
+                                        <a href="#" class="dropdown-toggle link link--kumya" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i>Event<span class="caret"></span></a>
+
+                                        <ul class="dropdown-menu event-menu">
+                                            <li><a href="@Url.Action("Create", "EventRequest")">Place   Request</a></li>
+                                            <li><a href="@Url.Action("IndexByID", "ClientOrderVM")">Event History</a></li>
+                                        </ul>
+                                    </li>
+                                }
+
+
+                                <li class="m_nav_item" id="moble_nav_item_6">
+                                    @Html.Partial("_LoginPartial")
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="header">
+                <div class="agileits_w3layouts_logo">
+                    <h1><a href="index.html">Events Planning</a></h1>
+                </div>
+
+                <div class="clearfix"> </div>
+            </div>
+            <!-- //header -->
+        </div>
+    </div>
+    <!-- //banner -->
+    <!-- //about -->
+    <!-- skills -->
+    <script src="~/Template/js/skill.bars.jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('.skillbar').skillBars({
+                from: 0,
+                speed: 4000,
+                interval: 100,
+                decimals: 0,
+            });
+
+        });
+    </script>
+    <!-- //skills -->
+    <!-- //about-bottom -->
+    <!-- bootstrap-pop-up -->
+    <div class="modal video-modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Events Planning
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <section>
+                    <div class="modal-body">
+                        <img src="~/Template/images/5.jpg" alt=" " class="img-responsive" />
+
+                        <p>
+                            Ut enim ad minima veniam, quis nostrum
+                            exercitationem ullam corporis suscipit laboriosam,
+                            nisi ut aliquid ex ea commodi consequatur? Quis autem
+                            vel eum iure reprehenderit qui in ea voluptate velit
+                            esse quam nihil molestiae consequatur, vel illum qui
+                            dolorem eum fugiat quo voluptas nulla pariatur.
+                            <i>
+                                " Quis autem vel eum iure reprehenderit qui in ea voluptate velit
+                                esse quam nihil molestiae consequatur.
+                            </i>
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+    <div style="padding:20px;">
+        <div style=" padding: 45px;background-color:#cf2d50;text-align: center;">
+            <h1><a href="@Url.Action("Create", "EventRequest")" style="color:white; font-weight:700; letter-spacing:7px;">Place an Request</a></h1>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer">
+        <div class="container">
+            <h2><a href="index.html">Events Planning</a></h2>
+            <h3>(+880) 1823142319</h3>
+            <form action="#" method="post">
+                <input type="email" name="email" placeholder="Your email..." required="">
+                <input type="submit" value=" ">
+            </form>
+            <div class="agileits_w3three_nav">
+                @*<div class="agileits_w3three_nav_left">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="services.html">Services</a></li>
+                            <li class="active"><a href="about.html">About</a></li>
+                            <li><a href="work.html">Our Work</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                        </ul>
+                    </div>*@
+                @*<div class="agileits_w3three_nav_right">
+                        <ul class="agileits_social_list">
+                            <li><a href="#" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#" class="w3_agile_dribble"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+                            <li><a href="#" class="w3_agile_vimeo"><i class="fa fa-vimeo" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>*@
+                <div class="clearfix"> </div>
+            </div>
+            <p>© 2018 Events Planning. All rights reserved ||</p>
+        </div>
+    </div>
+    <!-- //footer -->
+    <!-- //here ends scrolling icon -->
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*
+                var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+                };
+            */
+
+            $().UItoTop({ easingType: 'easeOutQuart' });
+
+        });
+    </script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript" src="~/Template/js/move-top.js"></script>
+    <script type="text/javascript" src="~/Template/js/easing.js"></script>
+    <script type="text/javascript" src="~/Template/js/main.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

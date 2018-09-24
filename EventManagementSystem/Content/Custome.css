@@ -1,0 +1,5 @@
+﻿.modal-dialog {
+    z-index: 9999;
+    margin-top: 158px !important;
+    background: #ffffff;
+}

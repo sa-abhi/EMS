@@ -1,0 +1,358 @@
+﻿@model EventManagementSystem.Models.EventRequest
+
+@{
+    ViewBag.Title = "Index";
+   
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+
+    <title>Event Registration Form Widget Flat Responsive Widget Template :: w3layouts</title>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Event Registration Form Widget Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
+    <link href="~/EventRequestTemplate/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+
+    <style>
+        .w3layouts_main_grid select {
+            outline: none;
+            background: rgba(152, 149, 149, 0.42);
+            color: #fff;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid rgba(152, 149, 149, 0.42);
+        }
+
+        .radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
+            position: absolute;
+            margin-top: 4px \9;
+            margin-left: 200px;
+        }
+
+        span {
+            color: hsla(200, 18%, 148%, 1);
+        }
+
+        .radio, .checkbox {
+            position: relative;
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-right: -117px;
+            float: inherit;
+            margin-left: -379px;
+        }
+
+
+        .w3layouts_main_grid input[type="text"], #category, #category1, #risk, #priority, .agileits_w3layouts_main_gridr input[type="time"], .w3layouts_main_grid input[type="email"], .w3layouts_main_grid textarea {
+            outline: none;
+            width: 102%;
+            background: rgba(120, 109, 118, 0.36);
+            color: #fff;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid rgba(152, 149, 149, 0.42);
+        }
+    </style>
+
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="application/x-javascript">
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+               function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+    <script src="~/Scripts/jquery.datetimepicker.js"></script>
+    <script>
+						$(function() {
+						    $("#datepicker").date({
+
+						        dateFormat: "yyy/mm/dd",
+						        changeMonth: true,
+						        changeYear: true,
+						        minDate: new Date(2017,0,1),
+						        maxDate: new Date(2018, 0, 1),
+						        showOn: "both",
+                                buttonText:"select"
+
+						    })
+
+						});
+    </script>
+
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <!-- banner -->
+        <div class="center-container">
+            <div class="main">
+                <h1 class="w3layouts_head">Event Request Form</h1>
+                <div class="w3layouts_main_grid">
+                    <form action="#" method="post" class="w3_form_post">
+
+
+
+                        <div class="w3_agileits_main_grid w3l_main_grid">
+                            @*<span class="agileits_grid col-md-6">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                @Html.LabelFor(model => model.ClientID, "Client ID", htmlAttributes: new { @class = "control-label" })
+
+                                @Html.DropDownList("ClientID", null, "--Select Client--", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ClientID, "", new { @class = "text-danger" })
+
+                            </span>*@
+                            <span class="agileits_grid col-md-6">
+
+                                @Html.LabelFor(model => model.CityID, "City ID", htmlAttributes: new { @class = "control-label" })
+
+                                @Html.DropDownList("CityID", null, "--Select City--", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
+
+                            </span>
+                            <span class="agileits_grid col-md-6">
+
+                                @Html.LabelFor(model => model.AreaID, "Area ID", htmlAttributes: new { @class = "control-label" })
+
+                                @Html.DropDownList("AreaID", null, "--Select Area--", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.AreaID, "", new { @class = "text-danger" })
+
+                            </span>
+                            <span class="agileits_grid col-md-6">
+
+                                @Html.LabelFor(model => model.EventTypeID, "--Event Type ID--", htmlAttributes: new { @class = "control-label" })
+
+                                @Html.DropDownList("EventTypeID", null, "--Select Event Type--", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.EventTypeID, "", new { @class = "text-danger" })
+
+                            </span>
+                            <span class="agileits_grid col-md-6">
+
+
+                                @Html.LabelFor(model => model.EventSubTypeID, "EventSubTypeID", htmlAttributes: new { @class = "control-label" })
+
+                                @Html.DropDownList("EventSubTypeID", null, "--SelectEventSubType--", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.EventSubTypeID, "", new { @class = "text-danger" })
+
+
+                            </span>
+                            <span class="agileits_grid col-md-6">
+                                @Html.LabelFor(model => model.VenueID, "Venue ID", htmlAttributes: new { @class = "control-label" })
+
+                                @Html.DropDownList("VenueID", null, "--Select Venue--", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.VenueID, "", new { @class = "text-danger" })
+
+
+                            </span>
+
+                            <span class="agileits_grid col-md-6">
+
+                                @Html.LabelFor(model => model.EventDate, htmlAttributes: new { @class = "control-label" })
+
+                                @Html.EditorFor(model => model.EventDate, new { htmlAttributes = new { @type = "date", @class = "form-control", @id = "datepicker" } })
+                                @Html.ValidationMessageFor(model => model.EventDate, "", new { @class = "text-danger " })
+
+                            </span>
+                            <span class="agileits_grid col-md-6">
+
+                                @Html.LabelFor(model => model.EventName, htmlAttributes: new { @class = "control-label" })
+
+                                @Html.EditorFor(model => model.EventName, new { htmlAttributes = new { @class = "form-control" } })
+
+                                @Html.ValidationMessageFor(model => model.EventName, "", new { @class = "text-danger" })
+
+
+                            </span>
+
+
+                            <span class="agileits_grid col-md-6">
+
+                                @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label" })
+
+                                @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+                            </span>
+                            <span class="agileits_grid col-md-6">
+                                @Html.LabelFor(model => model.NoOfGuest, htmlAttributes: new { @class = "control-label" })
+
+                                @Html.EditorFor(model => model.NoOfGuest, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.NoOfGuest, "", new { @class = "text-danger" })
+
+                            </span>
+                            <span class="agileits_grid col-md-6">
+
+                                @Html.LabelFor(model => model.Budget, htmlAttributes: new { @class = "control-label" })
+
+                                @Html.EditorFor(model => model.Budget, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Budget, "", new { @class = "text-danger" })
+
+                            </span>
+
+
+
+                        </div>
+
+                        <div class="w3_agileits_main_grid w3l_main_grid col-md-12">
+                            <h6 style="color:mediumvioletred">Please Chose</h6>
+
+
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.EditorFor(model => model.Stage)
+                                            @Html.ValidationMessageFor(model => model.Stage, "", new { @class = "text-danger" })
+                                        </th>
+                                        <th style="color:white">
+                                            Stage
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td>
+                                            @Html.EditorFor(model => model.Catering)
+                                            @Html.ValidationMessageFor(model => model.Catering, "", new { @class = "text-danger" })
+                                        </td>
+                                        <th style="color:white">
+                                            Catering
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.EditorFor(model => model.SoundSystemAndMusic)
+                                            @Html.ValidationMessageFor(model => model.SoundSystemAndMusic, "", new { @class = "text-danger" })
+                                        </th>
+                                        <th style="color:white">
+                                            SoundSystemAndMusic
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.EditorFor(model => model.Decoration)
+                                            @Html.ValidationMessageFor(model => model.Decoration, "", new { @class = "text-danger" })
+                                        </th>
+                                        <th style="color:white">
+                                            Decoration
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.EditorFor(model => model.PhotographyAndCinematography)
+                                            @Html.ValidationMessageFor(model => model.PhotographyAndCinematography, "", new { @class = "text-danger" })
+                                        </th>
+                                        <th style="color:white">
+                                            PhotographyAnd Video Photography
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.EditorFor(model => model.Invitation)
+                                            @Html.ValidationMessageFor(model => model.Invitation, "", new { @class = "text-danger" })
+                                        </th>
+                                        <th style="color:white">
+                                            Invitation
+                                        </th>
+
+
+                                    </tr>
+                                </thead>
+                            </table>
+
+
+                        </div>
+
+                        <div class="w3_agileits_main_grid w3l_main_grid col-md-12">
+                            <span class="agileits_grid col-md-6">
+
+                                @Html.LabelFor(model => model.SpecialInstruction, htmlAttributes: new { @class = "control-label" })
+
+                                <div>
+                                    @Html.EditorFor(model => model.SpecialInstruction, new { htmlAttributes = new { } })
+                                    @Html.ValidationMessageFor(model => model.SpecialInstruction, "", new { @class = "text-danger" })
+                                </div>
+
+                            </span>
+
+                        </div>
+                        <div class="clear"></div>
+                        <div class="w3_main_grid">
+                            <div class="w3_main_grid_right">
+                                <input type="submit" value="Submit">
+                            </div>
+                        </div>
+                        <div class="w3_main_grid">
+                            <div class="w3_main_grid_right">
+                                @Html.ActionLink("Back to List", "Index")
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+                <!-- Calendar -->
+                <link rel="stylesheet" href="css/jquery-ui.css" />
+                <script src="js/jquery-ui.js"></script>
+                <script>
+						$(function() {
+							$( "#datepicker" ).datepicker();
+						});
+                </script>
+                <!-- //Calendar -->
+
+            </div>
+        </div>
+
+        <!-- //footer -->
+
+
+    }
+
+
+</body>
+</html>

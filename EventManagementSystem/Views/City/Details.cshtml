@@ -1,0 +1,23 @@
+﻿@model EventManagementSystem.Models.City
+
+@{
+    Layout = null;
+}
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CityName)
+        </dd>
+
+    </dl>
+</div>
+@*<p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.CityID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@

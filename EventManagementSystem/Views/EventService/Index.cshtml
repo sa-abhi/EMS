@@ -1,0 +1,58 @@
+﻿@model IEnumerable<EventManagementSystem.Models.EventServices>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientOrder.ClientOrderKey)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Service.ServiceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceProvider.ServiceProviderKey)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cost)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClientOrder.ClientOrderKey)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Service.ServiceName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceProvider.ServiceProviderKey)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cost)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EventServicesID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EventServicesID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.EventServicesID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,60 @@
+﻿@model EventManagementSystem.Models.FoodItem
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FoodItem</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FoodCategory.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FoodCategory.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MealType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MealType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            <img src="~/Images/@Html.DisplayFor(model=>model.Image)" style="height:200px;width:200px;" />
+            @*@Html.DisplayFor(model => model.Image)*@
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.FoodItemID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

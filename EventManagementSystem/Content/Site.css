@@ -1,0 +1,54 @@
+﻿.search-box .app-search .srh-btn {
+    top: 15px;
+}
+
+.badge {
+    padding: 4px 6px;
+    padding-top: 4px;
+    padding-right: 6px;
+    padding-bottom: 4px;
+    padding-left: 6px;
+    font-size: 9px;
+}
+
+
+.vd_bg-red {
+    background-color: #f85d2c !important;
+}
+
+.noti {
+    position: relative;
+}
+
+.noti-span {
+    position: absolute;
+    top: -4px;
+    right: -15px;
+    padding: 0;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+}
+
+.dropdown-menu {
+    left: -70px !important;
+}
+
+#noti-details {
+    height: 215px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.home-event {
+    position: relative;
+}
+
+.event-menu {
+    left: 0;
+}

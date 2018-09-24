@@ -1,0 +1,812 @@
+﻿@model EventManagementSystem.ViewModels.ClientOrderViewModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+
+}
+@section Styles{
+    <link href="~/Content/jquery.steps.css" rel="stylesheet" />
+    <style>
+        section {
+            overflow-y: scroll;
+        }
+
+        textarea {
+            overflow: auto;
+            resize: vertical;
+            width: 400px;
+        }
+
+        .btn-success {
+            color: #fff;
+            background-color: #808080;
+            border-color: #28b779;
+        }
+    </style>
+
+}
+
+@section Scripts {
+    <script src="~/Scripts/jquery.steps.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $(".allSec").steps({
+                headerTag: "h3",
+                bodyTag: "section",
+                transitionEffect: "slideLeft",
+
+            });
+
+
+            var todayDate = new Date().getDate();
+            $('#datetimepicker1').datetimepicker({
+                minDate: new Date(),
+                maxDate: new Date(new Date().setDate(todayDate + 360)),
+                showClear: true,
+                showClose: true,
+                sideBySide: true,
+                toolbarPlacement: 'top',
+                ignoreReadonly: true,
+                format: "MM/DD/YYYY hh:mm A"
+            });
+            $('#datetimepicker2').datetimepicker({
+                minDate: 0,
+                sideBySide: true,
+                showClear: true,
+                showClose: true,
+                toolbarPlacement: 'top',
+                ignoreReadonly: true,
+                format: "MM/DD/YYYY hh:mm A"
+            });
+
+        })
+    </script>
+    <script>
+
+        $(document).ready(function () {
+            var addServices = [];
+            var cateringService = [];
+            var checkedFoods = [];
+            var decorationServices = [];
+
+
+            //Add button click function
+            $('#add').click(function () {
+                addServices.push({
+                    ServiceID: $('#ServiceID').val().trim(),
+                    Price: parseInt($('#Price').val().trim()),
+                });
+
+                var price = parseFloat($('#Price').val());
+
+                var oldPrice = parseFloat($('#totalService').val());
+                if (price == '') {
+                    $('#totalService').val();
+                } else {
+                    price = parseFloat($('#totalService').val()) + price;
+                }
+
+                $('#totalService').val(price);
+
+                //Clear fields
+                $('#ServiceID').val('');
+                $('#Price').val('');
+
+                console.log(addServices);
+
+                //populate order items
+                GeneratedServiceTable();
+
+            });
+
+
+            //catering service
+            function catSerFunc() {
+                $('#MealShow tbody tr').each(function () {
+                    checkedFoods = [];
+                    var $this = $(this);
+                    $this.find('input:checked').each(function () {
+                        checkedFoods.push($(this).val());
+                    });
+
+                    var mealType = $this.find('.Meal').val();
+                    var foodItems = checkedFoods.join();
+                    var ppPrice = $this.find('.TotalCost').val();
+                    if (mealType != "selected" && ppPrice > 0) {
+                        cateringService.push({
+                            MealType: mealType,
+                            FoodItems: foodItems,
+                            PerPersonCost: ppPrice
+                        })
+                    }
+                    else {
+                        cateringService = [];
+                    }
+                });
+            }
+
+
+            function DecorationFuntion() {
+                $('#decorationShow tbody tr').each(function () {
+
+                    var $this = $(this);
+                    var decTypId = $this.find('.DecorationTypeID').val();
+                    var decImgId = $this.find('.DecorationImageID').val();
+                    var cusImg = $this.find('.decimg').attr('src');
+                    var decPrice = $this.find('.decPrice').val();
+
+                    if (decTypId != null && decPrice > 0) {
+                        decorationServices.push({
+                            DecorationTypeID: decTypId,
+                            DecorationImageID: decImgId,
+                            CustomImage: cusImg,
+                            Price: decPrice
+                        })
+                    }
+                    else {
+                        decorationServices = [];
+                    }
+                })
+            }
+
+
+            function GeneratedServiceTable() {
+                if (addServices.length > 0) {
+                    var $table = $('<table/>');
+                    $table.append('<thead><tr><th>Service</th><th>Price</th><th></th></tr></thead>');
+                    var $tbody = $('<tbody/>');
+                    $.each(addServices, function (i, val) {
+                        var $row = $('<tr/>');
+                        $row.append($('<td/>').html(val.ServiceID));
+                        $row.append($('<td/>').html(val.Price));
+                        var $remove = $('<a href="#">Remove</a>');
+                        $remove.click(function (e) {
+                            e.preventDefault();
+                            addServices.splice(i, 1);
+                            GeneratedServiceTable();
+                        });
+                        $row.append($('<td/>').html($remove));
+                        $tbody.append($row);
+                    });
+                    console.log("current", addServices);
+                    $table.append($tbody);
+                    $('#addServices').html($table);
+                }
+                else {
+                    $('#addServices').html('');
+                }
+            }
+
+            console.log();
+
+            //catering row add
+            $('#btnAddFoodList').click(function (e) {
+                e.preventDefault();
+                var tableTr;
+                tableTr = $('#MealShow tbody tr:eq(0)').clone();
+                $('#MealShow tbody').append(tableTr);
+                $('#MealShow tbody tr:last').find('.TotalCost').val('');
+                $('#MealShow tbody tr:last td:eq(1)').empty();
+
+            });
+
+            //adding fooditems in checkbox
+            $(document).on('change', '.Meal', function () {
+
+                var $this = $(this).val();
+                var divrow = $(this).parents('tr').find('td:eq(1)');
+                divrow.empty();
+
+                $.getJSON('/ClientOrderVM/GetFoodItem', { meal: $this }, function (data) {
+                    $.each(data, function (index, row) {
+                        console.log(data);
+                        divrow.append(' <div style="float:left; padding:5px" id="checkboxs"><input type="checkbox" data-price="' + row.cost + '" id="' + row.foodid + '" class="chkFood" value=' + row.mealName + '/> ' + row.mealName + '(' + row.cost + ')</div>');
+                    });
+                    console.log(data);
+                })
+            });
+
+
+            //checkbox clicking functions
+            $(document).on('click', '.chkFood', function () {
+
+                var total = 0.00;
+                var TotalCostTd = $(this).parents('tr').find('td:eq(2)');
+                var divrow = $(this).parents('tr').find('td:eq(1)');
+                divrow.find('.chkFood:checked').each(function () {
+                    total += parseFloat($(this).attr("data-price"));
+                });
+                TotalCostTd.find('.TotalCost').val(total);
+
+                totalcost = 0.00;
+                $('.chkFood:checked').each(function () {
+                    totalcost += parseFloat($(this).attr("data-price"));
+                });
+                $('#totalCateCost').val(totalcost);
+
+                var text = "";
+                $('.chkFood:checked').each(function () {
+                    text += $(this).val() + ',';
+                });
+                //text = text.substring(0, text.length - 1);
+                checkedFoods.push(text);
+                var count = $("[type='checkbox']:checked").length;
+                console.log(checkedFoods);
+            })
+
+
+
+
+
+            //getting deocration Type ID
+
+            //add btn
+            $("#btnAddDecoList").click(function (e) {
+                e.preventDefault();
+                var tableTr;
+                tableTr = $('#decorationShow tbody tr:eq(0)').clone();
+                $('#decorationShow tbody').append(tableTr);
+                $('#decorationShow tbody tr:last').find('td:eq(3) .decPrice').val(0);
+            })
+
+            $(document).on('change', '.decPrice', function (e) {
+                e.preventDefault();
+                debugger;
+                var sum = 0;
+                $('.decPrice').each(function () {
+                    sum += parseFloat($(this).val());
+                    $("#totalDecPrice").val(sum);
+                });
+                console.log($("#totalDecPrice").val());
+            })
+
+            //remove btn
+            $(document).on('click', '.remove', function () {
+                $(this).parents('tr').remove();
+            })
+
+            //decoration type
+            $("#decorationShow").on('change', '.cusImg', function (e) {
+                var $this = $(this).parents('tr');
+                var file = e.originalEvent.target.files[0];
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function (evt) {
+                    $this.find('.decimg').attr('src', '');
+                    $this.find('.decimg').attr('src', evt.target.result);
+
+                };
+            })
+
+
+            //for EventType and EventSubType Cascading Dropdownlist
+            $(document).on('change', '#EventTypeID', function () {
+                $.getJSON('/ClientOrderVM/GetEventSubType', { EventTypeId: $('#EventTypeID').val() }, function (data) {
+                    $('#EventSubTypeID').empty();
+                    var html;
+                    $.each(data, function (index, row) {
+                        html = "<option value = '" + row.EventSubTypeId + "'>" + row.EventSubTypeName + "</option>";
+                        $('#EventSubTypeID').append(html);
+                    })
+                })
+            });
+
+
+            //for City and Venue Cascading Dropdownlist
+            $(document).on('change', '#CityID', function () {
+                $.getJSON('/ClientOrderVM/CityVenue', { CityId: $('#CityID').val() }, function (data) {
+                    $('#VenueID').empty();
+                    var html;
+                    $.each(data, function (index, row) {
+                        html = "<option value =  0> --Select venue-- </option>";
+                        html += "<option value = '" + row.VenueId + "'>" + row.VenueName + "</option>";
+                        $('#VenueID').append(html);
+                    })
+                })
+            });
+
+            $(document).on('change', '#guestNumber', function () {
+                var ng = $('#guestNumber').val();
+                console.log(ng);
+                $.getJSON('/ClientOrderVM/GetVenueWithNoOfGuest', { numberOfGuest: ng }, function (data) {
+                    $('#VenueID').empty();
+                    var html;
+                    $.each(data, function (index, row) {
+                        html = "<option value = '" + row.VId + "'>" + row.VName + "</option>";
+                        $('#VenueID').append(html);
+                    })
+                });
+            })
+
+            //Save button click function
+            $('#submit').click(function (e) {
+                e.preventDefault();
+
+                catSerFunc();
+                DecorationFuntion();
+
+                var DecCost = $("#totalDecPrice").val();
+                var sDate = $('#EventStartDate').val();
+                var eDate = $('#EventEndDate').val();
+                var netTotalAmm = parseFloat($("#netTotal").val());
+                var data = {
+                    TotalDecCost: DecCost,
+                    ClientID: $('#ClientID').val().trim(),
+                    CityID: $('#CityID').val().trim(),
+                    EventTypeID: $('#EventTypeID').val().trim(),
+                    EventSubTypeID: $('#EventSubTypeID').val().trim(),
+                    EventName: $('#EventName').val().trim(),
+                    EventStartDate: sDate,
+                    EventEndDate: eDate,
+                    NoOfGuest: $('#NoOfGuest').val().trim(),
+                    VenueID: $('#VenueID').val().trim(),
+                    SpecialInstruction: $('#SpecialInstruction').val().trim(),
+                    EventServicess: addServices,
+                    EventsCaterings: cateringService,
+                    EventsDecorations: decorationServices,
+                    PgCategory: $('#PgCategory').val().trim(),
+                    PgNumberOfTeam: $('#PgNumberOfTeam').val().trim(),
+                    PgPrice: $('#PgPrice').val().trim(),
+                    TotalCateCost: $("#totalCateCost").val().trim(),
+                    Vat: $("#Vat").val(),
+                    Discount: parseFloat($("#Discount").val()),
+                    NetTotal: netTotalAmm
+                }
+
+                //$(this).val('Please wait...');
+
+                $.ajax({
+                    url: '/ClientOrderVM/Create',
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    dataType: "JSON",
+                    contentType: "application/json",
+                    success: function (d) {
+                        console.log(d);
+                        debugger;
+                        //check is successfully save to database
+                        if (d == true) {
+                            //will send status from server side
+                            alert('Successfully done.');
+                            //clear form
+                            document.getElementById("ClientOrderForm").reset();
+                        }
+                        else {
+                            alert('Failed');
+                        }
+
+
+                    },
+                    error: function () {
+                        alert('Error. Please try again.');
+
+                    }
+                });
+
+
+            });
+
+            var venCos;
+            $(document).on('change', '#VenueID', function () {
+                $this = parseInt($(this).val());
+                venID = parseInt($('#VenueID').val());
+                $.getJSON('/ClientOrderVM/GetVenueCost', { Venueid: venID }, function (data) {
+                    console.log(data);
+                    $('#subTotalAmm').attr('data-venu', parseFloat(data));
+                });
+
+            });
+            
+
+            $('#GenBill').click(function (e) {
+                e.preventDefault();
+                GenerateBill();
+
+            });
+
+            function GenerateBill() {
+
+                var venuCost = parseFloat($('#subTotalAmm').attr("data-venu"));
+                venuCost = isNaN(venuCost) ? 0 : venuCost;
+                var decCost = parseFloat($("#totalDecPrice").val());
+                decCost = isNaN(decCost) ? 0 : decCost;
+                var CateCost = Number(parseFloat($("#totalCateCost").val()) * parseFloat($("#NoOfGuest").val()));
+                CateCost = isNaN(CateCost) ? 0 : CateCost;
+                var photCost = parseFloat($("#PgPrice").val());
+                photCost = isNaN(photCost) ? 0 : photCost;
+                var serCost = parseFloat($("#totalService").val());
+                serCost = isNaN(serCost) ? 0 : serCost;
+
+                var total = Number(venuCost + decCost + CateCost + photCost + serCost)
+                $('#subTotalAmm').val(total);
+                $('#netTotal').val(total);
+                $('#netTotal').attr('data-net', total);
+            }
+
+            $('#Vat').change(function () {
+                $this = parseFloat($(this).val());
+                var total = parseFloat($('#netTotal').attr('data-net')) + $this;
+                $('#netTotal').val(total);
+
+            });
+
+            $('#Discount').change(function () {
+                $this = parseFloat($(this).val());
+                var total = parseFloat($('#netTotal').val()) - $this;
+                $('#netTotal').val(total);
+
+            });
+
+
+        });
+
+
+    </script>
+}
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Client order: Create</h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Client order</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Create</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+
+    <div class="card">
+        @using (Html.BeginForm("Create", "ClientOrderVM", FormMethod.Post, new {@id="ClientOrderForm", @class = "form-horizontal sec", @enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="card-body wizard-content">
+                <h4 class="card-title">Client Order Form</h4>
+                <h6 class="card-subtitle"></h6>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="allSec">
+                    <h3>Basic Info</h3>
+                    <section>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ClientID, "Client", htmlAttributes: new { @class = "control-label col-md-2", @id = "date" })
+                            <div class="col-md-6">
+                                @Html.DropDownList("ClientID", null, "-Select-", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ClientID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CityID, "City", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                @Html.DropDownList("CityID", null, "-Select-", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EventTypeID, "Event Type", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                @Html.DropDownList("EventTypeID", null, "-Select-", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.EventTypeID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EventSubTypeID, "Event Sub Type", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                @Html.DropDownList("EventSubTypeID", null, "-Select-", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.EventSubTypeID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EventName, "Event Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.EventName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.EventName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EventStartDate, "Event Start Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                <div class='input-group date' id="datetimepicker1">
+                                    <input type='datetime' name="EventStartDate" id="EventStartDate" class="form-control" readonly />
+                                    <span class="input-group-addon">
+                                        <span class="mdi mdi-calendar-clock font-20"></span>
+                                    </span>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.EventStartDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EventEndDate, "Event End Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                <div class='input-group date' id="datetimepicker2">
+                                    <input type='datetime' name="EventEndDate" id="EventEndDate" class="form-control" readonly />
+                                    <span class="input-group-addon">
+                                        <span class="mdi mdi-calendar-clock font-20"></span>
+                                    </span>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.EventEndDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Duration", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                <div class='input-group'>
+                                    <input type='text' name="Duration" id="EventDuration" class="form-control" />
+                                </div>
+                                @Html.ValidationMessageFor(model => model.EventEndDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NoOfGuest, "No Of Guest", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.NoOfGuest, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.NoOfGuest, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.VenueID, "Venue", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                @Html.DropDownList("VenueID", null, "-Select-", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.VenueID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SpecialInstruction, "Special Instruction", htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextAreaFor(model => model.SpecialInstruction, new { htmlAttributes = new { @class = "form-control col-md-8" } })
+                                @Html.ValidationMessageFor(model => model.SpecialInstruction, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </section>
+                    <h3>Decorating & Catering</h3>
+                    <section>
+                        <div id="Decorating" class="form-group col-md-12">
+                            <h3 style="text-align:center">Decoration</h3>
+                            <hr />
+                            <div class="container">
+                                <div id="firstRow">
+                                    <table id="decorationShow" class="col-md-12 table-bordered table-responsive table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Decoration Type</th>
+                                                <th>Image</th>
+                                                <th>Custom Image</th>
+                                                <th>Price</th>
+                                                <th><a href="javascript:void(0)" style="background-color:gray;color:white" class="btn btn-success" id="btnAddDecoList">Add More</a></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr>
+                                                <td>
+                                                    @Html.DropDownList("DecorationTypeID", null, "-Select-", htmlAttributes: new { @class = "form-control DecorationTypeID" })
+                                                </td>
+                                                <td>
+                                                    @Html.DropDownList("DecorationImageID", null, "-Select-", htmlAttributes: new { @class = "form-control DecorationImageID" })
+                                                </td>
+                                                <td>
+                                                    <input type="file" name="ImageUpload" id="cusImg" class="cusImg" />
+                                                    <img src="" class="decimg" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="decPrice" />
+                                                </td>
+                                                <td>
+                                                    <input type="button" value="remove" class="remove btn btn-danger" />
+                                                </td>
+                                            </tr>
+
+
+                                        </tbody>
+                                    </table>
+                                    <br />
+                                    <div style="float:right">
+                                        <label>Total</label>
+                                        <input type="text" id="totalDecPrice" />
+                                    </div>
+                                    <br />
+
+                                </div>
+                                <br />
+                            </div>
+                        </div>
+
+                        <div id="catering" style=" height:auto" class="form-group col-md-12">
+                            <h3 style="text-align:center">Catering</h3>
+                            <hr />
+                            <div class="container">
+                                <div id="firstRow">
+                                    <table id="MealShow" class="col-md-12 table-bordered table-responsive table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Select Meal Type</th>
+                                                <th>Food Items</th>
+                                                <th>Price</th>
+                                                <th><button id="btnAddFoodList" class="btn btn-success">Add More</button></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div>
+                                                        <select class="Meal" name="MealType">
+                                                            <option value="selected" selected disabled>--Select Meal Type--</option>
+                                                            <option value="Breakfast">Breakfast</option>
+                                                            <option value="Lunch">Lunch</option>
+                                                            <option>Evening Snacks</option>
+                                                            <option>Dinner</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div id="selectfood">
+
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <input type="text" class="TotalCost" readonly />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <input type="button" value="remove" class="remove btn btn-danger" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+
+                                    </table>
+                                    <br />
+                                    <div style="float:right">
+                                        <label>Total</label>
+                                        <input type="text" id="totalCateCost" readonly />
+                                    </div>
+                                    <br />
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                </div>
+
+                            </div>
+                            <br />
+
+                        </div>
+
+                    </section>
+                    <h3>Others</h3>
+                    <section>
+                        <div id="photography" style="height:auto" class="form-group col-md-12">
+                            <h3 style="text-align:center">Photography</h3>
+                            <hr />
+                            <label style="text-align:left">Category</label>
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(model => model.PgCategory, new SelectList(new[] { "1", "2", "3", "4", "5" }), "-Select Team size-")
+                                @Html.ValidationMessageFor(model => model.PgCategory, "", new { @class = "text-danger" })
+                            </div>
+                            <br />
+                            @Html.LabelFor(model => model.PgNumberOfTeam, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <br />
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.PgNumberOfTeam, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.PgNumberOfTeam, "", new { @class = "text-danger" })
+                            </div>
+
+                            @Html.LabelFor(model => model.PgPrice, "Price", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.PgPrice, new { htmlAttributes = new { @class = "form-control" } })
+                                @*@Html.ValidationMessageFor(model => model.PgPrice, "", new { @class = "text-danger" })*@
+                            </div>
+                        </div>
+
+                        <div id="Otherservices" style="height:auto;" class="form-group col-md-12">
+                            <br />
+
+                            <h3 style="text-align:center">Other service</h3>
+                            <hr />
+                            <table>
+
+                                <tr>
+                                    <td>Service Name</td>
+                                    <td>Price</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.DropDownList("ServiceID", null, "--- Select Service ---", htmlAttributes: new { @class = "form-control" })
+                                    </td>
+
+                                    <td>
+                                        <input type="text" id="Price" />
+                                    </td>
+                                    &nbsp; &nbsp;
+                                    <td>
+                                        <input type="button" id="add" value="add" class="btn btn-success btn-sm" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <div id="addServices" class="tablecontainer">
+
+                            </div>
+                            <div><input type="text" id="totalService" value="0" readonly /></div>
+                        </div>
+
+
+                    </section>
+                    <h3>Bill</h3>
+                    <section>
+                        <div class="form-group">
+                            <button type="button" id="GenBill">Generate Bill</button>
+                        </div>
+                        <div class="form-group">
+                            <label>Sub Total Ammount</label>
+                            <div>
+                                <input type="text" name="SubTotalAmmount" id="subTotalAmm" data-venu="" readonly class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Vat</label>
+                            <div>
+                                <input type="text" id="Vat" name="Vat" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Discount</label>
+                            <div>
+                                <input type="text" id="Discount" name="Discount" class="form-control" />
+                            </div>
+                        </div>
+                        <div>
+                            <label>Total</label>
+                            <div>
+                                <input type="text" data-net="" id="netTotal" name="NetTotal" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" id="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        }
+        <div>
+            @Html.ActionLink("Back to List", "Create")
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,44 @@
+﻿@model EventManagementSystem.Models.DecorationImage
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DecorationImage</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DecorationType.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DecorationType.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            <img src="~/Images/@Html.DisplayFor(model => model.Image)" style="width:200px;height:200px;" />
+            @*@Html.DisplayFor(model => model.Image)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImageCode)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DecorationImageID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
